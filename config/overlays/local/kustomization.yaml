@@ -1,3 +1,18 @@
+namespace: local
+
 resources:
   - ../../base
-  - pull-secret.yaml
+replacements:
+  - source:
+      kind: Service
+      name: rmq
+      fieldPath: metadata.namespace
+    targets:
+      - select:
+          kind: ScaledObject
+          name: dramatiq-app-scaler
+        fieldPaths:
+          - spec.triggers.0.metadata.host
+        options:
+          delimiter: "."
+          index: 1

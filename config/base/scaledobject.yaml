@@ -13,7 +13,7 @@ spec:
     - type: rabbitmq
       metadata:
         protocol: http
-        host: http://guest:guest@rmq:15672
+        host: http://guest:guest@rmq.$(NAMESPACE).svc.cluster.local:15672
         mode: QueueLength
         value: "1"
         queueName: default
