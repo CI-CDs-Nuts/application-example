@@ -1,0 +1,22 @@
+name: Initialize repository
+on:
+  push:
+    branches: [main]
+
+jobs:
+  init:
+    # if: github.run_number == 1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Replace placeholders
+        run: |
+          sed -i "s/__APP_NAME__/${{ github.event.repository.name }}/g" config/base/kustomization.yaml
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git commit -am "Initialize from template"
+          git push

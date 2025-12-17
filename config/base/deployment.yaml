@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dramatiq-app
+spec:
+  replicas: 0
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: dramatiq
+  template:
+    metadata:
+      labels:
+        app: dramatiq
+    spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: dramatiq
+          matchLabelKeys:
+            - pod-template-hash
+      containers:
+        - image: app
+          name: app
+          command: ["uv", "run", "dramatiq", "main"]
+          resources:
+            requests:
+              memory: 512Mi
+              cpu: 1024m
+          env:
+            - name: RMQ_URL
+              value: "amqp://rmq"
+
+      imagePullSecrets:
+        - name: pull-secret

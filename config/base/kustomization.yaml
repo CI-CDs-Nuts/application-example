@@ -1,0 +1,9 @@
+resources:
+  - deployment.yaml
+  - rmq
+  - scaledobject.yaml
+
+images:
+  - name: app
+    newName: ghcr.io/ci-cds-nuts/__APP_NAME__
+    newTag: latest

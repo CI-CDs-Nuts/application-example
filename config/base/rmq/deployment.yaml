@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rmq
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: rmq
+  template:
+    metadata:
+      labels:
+        app: rmq
+    spec:
+      containers:
+        - image: public.ecr.aws/docker/library/rabbitmq:4.2.0-management-alpine
+          name: rmq
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 100m
