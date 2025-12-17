@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "python_dramatiq_example/**"
+    branches: [main]
   workflow_dispatch:
 
 env:
