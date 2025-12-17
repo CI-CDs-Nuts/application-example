@@ -1,0 +1,8 @@
+{
+  "name": "python_dramatiq_example",
+  "engineVersion": "v0.18.18",
+  "sdk": {
+    "source": "python"
+  },
+  "source": ".dagger"
+}

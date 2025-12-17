@@ -1,0 +1,39 @@
+name: Push Container to GHCR
+
+on:
+  push:
+    paths:
+      - "python_dramatiq_example/**"
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  push-container:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Dagger
+        uses: dagger/dagger-for-github@v7
+        with:
+          version: "latest"
+
+      - name: Push container to GHCR
+        working-directory: apps/python_dramatiq_example
+        run: |
+          dagger call \
+            push-container \
+            --image-repository=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} \
+            --tags=latest,${{ github.sha }} \
+            --username=${{ github.actor }} \
+            --token=env://GITHUB_TOKEN
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

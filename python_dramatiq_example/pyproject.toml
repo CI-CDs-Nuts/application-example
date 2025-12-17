@@ -1,0 +1,10 @@
+[project]
+name = "python-dramatiq-example"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "dramatiq>=1.18.0",
+    "pika>=1.3.2",
+]
