@@ -27,7 +27,7 @@ jobs:
           version: "latest"
 
       - name: Push container to GHCR
-        working-directory: apps/python_dramatiq_example
+        working-directory: python_dramatiq_example
         run: |
           dagger call \
             push-container \
