@@ -18,7 +18,7 @@ dramatiq.set_broker(rabbitmq_broker)
 
 @dramatiq.actor
 def do_work():
-    for id in range(30000):
+    for id in range(10000):
         do_some_more_work.send(id)
 
 
