@@ -5,5 +5,5 @@ resources:
 
 images:
   - name: app
-    newName: ghcr.io/ci-cds-nuts/application-example
+    newName: ghcr.io/ci-cds-nuts/__APP_NAME__
     newTag: latest
