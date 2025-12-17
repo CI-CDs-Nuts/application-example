@@ -2,18 +2,3 @@ resources:
   - base
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
-replacements:
-  - source:
-      kind: Service
-      name: rmq
-      fieldPath: metadata.namespace
-    targets:
-      - select:
-          kind: ScaledObject
-          name: dramatiq-app-scaler
-        fieldPaths:
-          - spec.triggers.0.metadata.host
-        options:
-          delimiter: "."
-          index: 1

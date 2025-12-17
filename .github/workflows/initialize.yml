@@ -15,7 +15,7 @@ jobs:
 
       - name: Replace placeholders
         run: |
-          sed -i "s/__APP_NAME__/${{ github.event.repository.name }}/g" config/base/kustomization.yaml
+          find config/ -type f -exec sed -i "s/__APP_NAME__/${{ github.event.repository.name }}/g" {} +
 
       - name: Commit changes
         run: |
